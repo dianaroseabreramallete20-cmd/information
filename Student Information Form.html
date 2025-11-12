@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://127.0.0.1:3002/STUDENTINFO.HTML -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" src="./Student Information Form_files/___vscode_livepreview_injected_script"></script>
+  
+  <title>Student Information Form</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      background: #fff;
+      padding: 25px 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 420px;
+      margin-bottom: 30px;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .logo-container img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+
+    .school-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #057731;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #155523;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #0f0404;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #118f54;
+      outline: none;
+    }
+
+    .gender-options {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #097e09;
+      color: rgb(209, 207, 207);
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #258d4d;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .success {
+      color: rgb(28, 119, 28);
+      font-size: 15px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    table {
+      width: 85%;
+      border-collapse: collapse;
+      background: rgb(214, 211, 211);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #160202;
+      text-align: center;
+      padding: 10px;
+    }
+
+    th {
+      background-color: #007bff;
+      color: rgb(2, 1, 1);
+    }
+
+    tr:nth-child(even) {
+      background-color: #c4bebe;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background-color: #a01624;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo-container">
+      <img src="./Student Information Form_files/366165555_109528598905526_3016794916943036402_n.jpg" alt="School Logo">
+      <div class="school-name">COLEGIO DE MONTALBAN</div>
+    </div>
+
+    <h2>Student Information Form</h2>
+    <form id="studentForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="Enter full name">
+      <div class="error" id="nameError"></div>
+
+      <label>Gender:</label>
+      <div class="gender-options">
+        <label><input type="radio" name="gender" value="Male"> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+      <div class="error" id="genderError"></div>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" placeholder="Enter age" min="1" max="120">
+      <div class="error" id="ageError"></div>
+
+      <label for="birthday">Birthday:</label>
+      <input type="date" id="birthday">
+      <div class="error" id="birthdayError"></div>
+
+      <label for="address">Address:</label>
+      <textarea id="address" rows="3" placeholder="Enter address"></textarea>
+      <div class="error" id="addressError"></div>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter email">
+      <div class="error" id="emailError"></div>
+
+      <label for="contact">Contact Number:</label>
+      <input type="text" id="contact" placeholder="11-digit number">
+      <div class="error" id="contactError"></div>
+
+      <label for="course">Course:</label>
+      <select id="course">
+        <option value="course">Select course</option>
+        <option value="BSIT">Bachelor of Science in Information Technology</option>
+        <option value="BSCpE">Bachelor of Science in Computer Engineering</option>
+        <option value="BSEd">Bachelor of Secondary Education</option>
+        <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+      </select>
+      <div class="error" id="courseError"></div>
+
+      <button type="button" onclick="validateForm()">Submit</button>
+      <div class="success" id="successMsg"></div>
+    </form>
+  </div>
+
+  <table id="studentTable" style="display: none;">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Birthday</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Course</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    let studentCount = 0;
+
+    function validateForm() {
+      const name = document.getElementById('name').value.trim();
+      const gender = document.querySelector('input[name="gender"]:checked');
+      const age = parseInt(document.getElementById('age').value.trim());
+      const birthday = document.getElementById('birthday').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const contact = document.getElementById('contact').value.trim();
+      const course = document.getElementById('course').value;
+
+      const nameError = document.getElementById('nameError');
+      const genderError = document.getElementById('genderError');
+      const ageError = document.getElementById('ageError');
+      const birthdayError = document.getElementById('birthdayError');
+      const addressError = document.getElementById('addressError');
+      const emailError = document.getElementById('emailError');
+      const contactError = document.getElementById('contactError');
+      const courseError = document.getElementById('courseError');
+      const successMsg = document.getElementById('successMsg');
+
+      nameError.textContent = '';
+      genderError.textContent = '';
+      ageError.textContent = '';
+      birthdayError.textContent = '';
+      addressError.textContent = '';
+      emailError.textContent = '';
+      contactError.textContent = '';
+      courseError.textContent = '';
+      successMsg.textContent = '';
+
+      let isValid = true;
+
+      if (name === '') {
+        nameError.textContent = 'Name is required.';
+        isValid = false;
+      }
+
+      if (!gender) {
+        genderError.textContent = 'Please select your gender.';
+        isValid = false;
+      }
+
+      if (isNaN(age) || age < 1 || age > 120) {
+        ageError.textContent = 'Enter a valid age between 1 and 120.';
+        isValid = false;
+      }
+
+      if (birthday === '') {
+        birthdayError.textContent = 'Birthday is required.';
+        isValid = false;
+      }
+
+      if (address === '') {
+        addressError.textContent = 'Address is required.';
+        isValid = false;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (email === '') {
+        emailError.textContent = 'Email is required.';
+        isValid = false;
+      } else if (!email.match(emailPattern)) {
+        emailError.textContent = 'Enter a valid email.';
+        isValid = false;
+      }
+
+      const contactPattern = /^[0-9]{11}$/;
+      if (!contact.match(contactPattern)) {
+        contactError.textContent = 'Enter a valid 11-digit number.';
+        isValid = false;
+      }
+
+      if (course === '') {
+        courseError.textContent = 'Please select a course.';
+        isValid = false;
+      }
+
+      if (isValid) {
+        studentCount++;
+        const tableBody = document.querySelector('#studentTable tbody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td>${studentCount}</td>
+          <td>${name}</td>
+          <td>${gender.value}</td>
+          <td>${age}</td>
+          <td>${birthday}</td>
+          <td>${address}</td>
+          <td>${email}</td>
+          <td>${contact}</td>
+          <td>${course}</td>
+          <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+        `;
+        tableBody.appendChild(newRow);
+
+        document.getElementById('studentTable').style.display = 'table';
+        successMsg.textContent = 'Student added successfully!';
+        document.getElementById('studentForm').reset();
+      }
+    }
+
+    function deleteRow(button) {
+      button.closest('tr').remove();
+    }
+  </script>
+
+
+
+
+</body></html>
